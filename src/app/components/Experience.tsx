@@ -6,7 +6,7 @@ import { Classroom } from "./Classroom";
 export const Experience = () => {
   return (
     <>
-      <ambientLight intensity={1} />
+      <ambientLight intensity={0.8} />
       <OrbitControls />
       <Classroom />
     </>
