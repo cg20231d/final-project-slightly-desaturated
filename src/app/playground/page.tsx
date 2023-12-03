@@ -13,25 +13,11 @@ type cameraAngle = {
 const Page = () => {
   const [rainIntensity, setRainIntensity] = useState(0.4);
   const [rainKey, setRainKey] = useState(0);
-  const [isMouseClicked, setIsMouseClicked] = useState(false);
-
-  useEffect(() => {
-    const handleMouseDown = () => {
-      setIsMouseClicked(true);
-    };
-
-    const handleMouseUp = () => {
-      setIsMouseClicked(false);
-    };
-
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
-
-    return () => {
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, []);
+  const [cameraLookAt, setCameraLookAt] = useState<cameraAngle>({
+    x: 25,
+    y: 4,
+    z: 4,
+  });
 
   const handleIntensityChange = (newIntensity: number) => {
     setRainIntensity(newIntensity);
@@ -39,6 +25,34 @@ const Page = () => {
     // Increment the key to trigger a re-mount of the Rain component
     setRainKey((prevKey) => prevKey + 1);
   };
+
+  const handleArrowKeyPress = (event: KeyboardEvent) => {
+    // Update the camera lookAt based on arrow key presses
+    switch (event.key) {
+      case "w":
+        setCameraLookAt((prev) => ({ ...prev, y: prev.y + 1 }));
+        break;
+      case "s":
+        setCameraLookAt((prev) => ({ ...prev, y: prev.y - 1 }));
+        break;
+      case "a":
+        setCameraLookAt((prev) => ({ ...prev, x: prev.x + 1 }));
+        break;
+      case "d":
+        setCameraLookAt((prev) => ({ ...prev, x: prev.x - 1 }));
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleArrowKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleArrowKeyPress);
+    };
+  }, []);
 
   const CameraLookAt = ({ x, y, z }: cameraAngle) => {
     const { camera } = useThree();
@@ -49,7 +63,7 @@ const Page = () => {
 
     return null;
   };
-  
+
   return (
     <main className="h-screen w-screen">
       <button onClick={() => handleIntensityChange(Math.random())}>
@@ -64,7 +78,7 @@ const Page = () => {
           near={0.1} // Set near clipping plane
           far={100} // Set far clipping plane
         />
-        <CameraLookAt x={25} y={4} z={4} />
+        <CameraLookAt {...cameraLookAt} />
         <Classroom />
         <Rain key={rainKey} position={[2, 0, -12]} intensity={rainIntensity} />
       </Canvas>
