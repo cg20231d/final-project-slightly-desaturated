@@ -3,6 +3,7 @@ import { Canvas, useThree } from "@react-three/fiber";
 import React, { useState, useEffect, useRef } from "react";
 import Rain from "../components/Rain";
 import Timer from "../components/Timer";
+import TodoWrapper from "../components/todo/TodoWrapper";
 
 import {
   OrbitControls,
@@ -11,6 +12,8 @@ import {
   useHelper,
 } from "@react-three/drei";
 import { Kelas } from "../components/Kelas";
+import { Danau } from "../components/Danau";
+
 import {
   Audio,
   DirectionalLight,
@@ -100,6 +103,7 @@ const Page = () => {
     <main className="h-screen w-screen relative">
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
         <Timer />
+        <TodoWrapper />
       </div>
       <div className="w-full h-full z-0">
         <label>
@@ -165,8 +169,9 @@ const Page = () => {
             far={100}
           />
           <CameraLookAt {...cameraLookAt} />
-          {/* <OrbitControls /> */}
-          <Kelas />
+          <OrbitControls />
+          {/* <Kelas /> */}
+          {/* <Danau /> */}
           <Rain key={rainKey} position={[2, 0, -12]} intensity={1 - Focus} />
         </Canvas>
       </div>
