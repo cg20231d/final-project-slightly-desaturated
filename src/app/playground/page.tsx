@@ -61,13 +61,13 @@ const Page = () => {
     };
   }, []);
 
-  // const CameraLookAt = ({ x, y, z }: cameraAngle) => {
-  //   const { camera } = useThree();
-  //   useEffect(() => {
-  //     camera.lookAt(x, y, z);
-  //   }, [camera, x, y, z]);
-  //   return null;
-  // };
+  const CameraLookAt = ({ x, y, z }: cameraAngle) => {
+    const { camera } = useThree();
+    useEffect(() => {
+      camera.lookAt(x, y, z);
+    }, [camera, x, y, z]);
+    return null;
+  };
 
   const directionalLightRef = useRef<DirectionalLight>(null!);
   const pointLightRef = useRef<PointLight>(null!);
@@ -99,8 +99,15 @@ const Page = () => {
           castShadow
         />
         <ambientLight intensity={0.2} />
-        <OrbitControls />
-        {/* <CameraLookAt {...cameraLookAt} /> */}
+        {/* <OrbitControls /> */}
+        <PerspectiveCamera
+          makeDefault // Make this camera the default camera
+          position={[-7, 3.5, 2]} // Set the initial position of the camera
+          fov={60} // Set the field of view
+          near={0.1} // Set near clipping plane
+          far={100} // Set far clipping plane
+        />
+        <CameraLookAt {...cameraLookAt} />
         <Kelas />
         <Rain key={rainKey} position={[2, 0, -12]} intensity={rainIntensity} />
       </Canvas>
