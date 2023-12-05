@@ -1,3 +1,9 @@
+| Slightly Desaturated   | NRP        |
+| ---------------------- | ---------- |
+| Adrian Karuna Soetikno | 502521     |
+| Java Kanaya Prada      | 5025211112 |
+| Afiq Fawwaz Haidar     | 5025211246 |
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
