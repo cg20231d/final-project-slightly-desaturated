@@ -1,14 +1,14 @@
 "use client";
 import { OrbitControls } from "@react-three/drei";
 import React from "react";
-import { Classroom } from "./Classroom";
+import { Kelas } from "./Kelas";
 
 export const Experience = () => {
   return (
     <>
-      <ambientLight intensity={0.8} />
+      <ambientLight intensity={0} />
       <OrbitControls />
-      <Classroom />
+      <Kelas />
     </>
   );
 };
