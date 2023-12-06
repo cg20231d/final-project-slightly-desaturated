@@ -17,7 +17,6 @@ import {
 } from "three";
 import Rain from "../Rain";
 import { Danau } from "../Danau";
-import Sushi from "../Sushi";
 
 type cameraAngle = {
   x: number;
@@ -164,8 +163,7 @@ export const Lake = () => {
         />
         <CameraLookAt {...cameraLookAt} />
         <OrbitControls />
-        <Sushi />
-        {/* <Danau /> */}
+        <Danau />
 
         <Rain key={rainKey} position={[2, 0, -12]} intensity={1 - Focus} />
       </Canvas>
