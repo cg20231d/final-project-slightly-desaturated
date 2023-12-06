@@ -52,12 +52,14 @@ export const Classroom = () => {
       if (rainSound != "heavyRain.mp3") {
         setRainSound("heavyRain.mp3");
         audioRef.current!.src = rainSound;
+        audioRef.current!.loop = true; // Set loop to true
         audioRef.current!.play();
       }
     } else {
       if (rainSound != "lowRain.mp3") {
         setRainSound("lowRain.mp3");
         audioRef.current!.src = rainSound;
+        audioRef.current!.loop = true; // Set loop to true
         audioRef.current!.play();
       }
     }

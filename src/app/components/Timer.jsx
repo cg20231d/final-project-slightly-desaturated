@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 
 function Timer() {
 	const [time, setTime] = useState(1500); // 25 minutes in seconds
 	const [isActive, setIsActive] = useState(false);
 	const [isBreak, setIsBreak] = useState(false);
+	const audioRef = useRef(); // Use useRef instead of createRef
+
+	// Memoize the function with useCallback
+	const playAudio = useCallback(() => {
+		if (audioRef.current) {
+			audioRef.current.play();
+		}
+	}, [audioRef]);
 
 	useEffect(() => {
 		let interval;
@@ -16,18 +24,19 @@ function Timer() {
 		} else {
 			clearInterval(interval);
 
-			if (time === 0) {
+			if (isActive && time === 0) {
+				// Check if isActive is true before updating state
 				// Switch to break or work
 				setIsBreak((prevIsBreak) => !prevIsBreak);
-				setIsActive(true);
-				setTime(isBreak ? 1500 : 300);
-			}
+				setIsActive(false);
 
-			setIsActive(false);
+				// Play the MP3 after the timer reaches zero
+				playAudio();
+			}
 		}
 
 		return () => clearInterval(interval);
-	}, [isActive, time, isBreak]);
+	}, [isActive, time, isBreak, playAudio]);
 
 	const handleStart = () => {
 		setIsActive(true);
@@ -62,22 +71,36 @@ function Timer() {
 
 	return (
 		<motion.div
-		drag
-		dragConstraints={{
-			right: 50, 
-		  }}
-		className="mx-auto w-64 bg-[#265073] text-white bg-opacity-75 px-28 py-5 flex flex-col justify-start items-center  rounded-lg shadow-md">
+			drag
+			dragConstraints={{
+				right: 50,
+			}}
+			className="mx-auto w-64 bg-[#265073] text-white bg-opacity-75 px-28 py-5 flex flex-col justify-start items-center  rounded-lg shadow-md"
+		>
 			<div className="w-52 py-1 flex text-center mb-3  text-sm justify-evenly items-center font-normal">
-				<button className="px-2  text-center   py-1 rounded-lg hover:bg-gray-600/60">Pomodoro</button>
-				<button className="px-2  text-center  py-1 rounded-lg hover:bg-gray-600/60">Break</button>
+				<button className="px-2  text-center   py-1 rounded-lg hover:bg-gray-600/60" onClick={handleReset}>
+					Pomodoro
+				</button>
+				<button className="px-2  text-center  py-1 rounded-lg hover:bg-gray-600/60" onClick={isBreak ? handleSkipToWork : handleSkipToBreak}>
+					{isBreak ? "Skip to Work" : "Skip to Break"}
+				</button>
 			</div>
-			
+
 			<div className="w-full flex items-center justify-center ">
 				<p className="text-6xl font-bold">{formatTime(time)}</p>
 			</div>
 
 			<div className="flex w-full justify-center items-center">
-				<button onClick={handleStart} disabled={isActive} className="px-10 rounded-lg mb-2 mt-3 py-2 bg-white text-[#26507390] text-2xl font-bold ">START</button>
+				{!isActive && (
+					<button onClick={handleStart} className="px-10 rounded-lg mb-2 mt-3 py-2 bg-white text-[#26507390] text-2xl font-bold">
+						START
+					</button>
+				)}
+				{isActive && (
+					<button onClick={handlePause} className="px-10 rounded-lg mb-2 mt-3 py-2 bg-white text-[#26507390] text-2xl font-bold">
+						PAUSE
+					</button>
+				)}
 			</div>
 
 			{/* <div className="flex space-x-4">
@@ -112,6 +135,7 @@ function Timer() {
 					</button>
 				)}
 			</div> */}
+			<audio ref={audioRef} src="/gong.mp3" />
 		</motion.div>
 	);
 }
