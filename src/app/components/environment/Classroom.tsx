@@ -26,6 +26,7 @@ type cameraAngle = {
 
 export const Classroom = () => {
   console.log("Classroom component rendered");
+
   const [rainSound, setRainSound] = useState("/lowRain.mp3");
   const [Focus, setFocus] = useState(0.5);
   const [rainKey, setRainKey] = useState(0);

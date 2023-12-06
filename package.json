@@ -10,14 +10,16 @@
   },
   "dependencies": {
     "@react-three/drei": "^9.90.0",
-    "@react-three/fiber": "^8.15.11",
+    "@react-three/fiber": "^8.15.12",
     "@react-three/postprocessing": "^2.15.11",
     "axios": "^1.6.2",
     "framer-motion": "^10.16.14",
+    "framer-motion-3d": "^10.16.14",
     "leva": "^0.9.35",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-spinners": "^0.13.8",
     "three": "^0.159.0",
     "troika-three-text": "^0.49.0",
     "webgl-sdf-generator": "^1.1.1"

@@ -17,6 +17,7 @@ import {
 } from "three";
 import Rain from "../Rain";
 import { Danau } from "../Danau";
+import Sushi from "../Sushi";
 
 type cameraAngle = {
   x: number;
@@ -113,6 +114,7 @@ export const Lake = () => {
       <audio hidden ref={audioRef} controls onLoad={audioRef.current?.play}>
         <source src={rainSound} type="audio/mp3" />
       </audio>
+
       <Canvas>
         <directionalLight
           ref={directionalLightRef}
@@ -162,7 +164,8 @@ export const Lake = () => {
         />
         <CameraLookAt {...cameraLookAt} />
         <OrbitControls />
-        <Danau />
+        <Sushi />
+        {/* <Danau /> */}
 
         <Rain key={rainKey} position={[2, 0, -12]} intensity={1 - Focus} />
       </Canvas>

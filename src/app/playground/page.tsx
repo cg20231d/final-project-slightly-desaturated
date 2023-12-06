@@ -27,14 +27,16 @@ const Page = () => {
 
   return (
     <main className="h-screen w-screen relative">
-      <div className="fixed top-0 right-0 transform  z-50">
+      <div className="fixed top-1/2  transform -translate-y-1/2  z-50">
+        <EnvirontmentBar handleEnvChange={handleEnvChange} />
+      </div>
+      <div className="fixed top-1/2 right-2 transform -translate-y-1/2  z-50">
         <Timer />
         <TodoWrapper />
-        <EnvirontmentBar handleEnvChange={handleEnvChange} />
       </div>
 
       <div className="relative w-full h-full z-10">
-        <Loader visibility={isLoading ? "opacity-100" : "opacity-0 h-1 w-1"} />
+        <Loader visibility={isLoading ? "opacity-100" : "opacity-0 w-1 h-1"} />
 
         {selectedEnv === 1 && <Lake />}
         {selectedEnv === 2 && <Classroom />}
