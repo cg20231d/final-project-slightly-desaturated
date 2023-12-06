@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Rain from "../components/Rain";
 import Timer from "../components/Timer";
 import TodoWrapper from "../components/todo/TodoWrapper";
+import { motion } from "framer-motion";
 
 import {
   OrbitControls,
@@ -96,16 +97,48 @@ const Page = () => {
 
   const directionalLightRef = useRef<DirectionalLight>(null!);
   const pointLightRef = useRef<PointLight>(null!);
-  return (
-    // <main className="h-screen w-screen">
 
-    // </main>
+  const [selectedEnv, setSelectedEnv] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleEnvChange = (envNumber: number) => {
+    setIsLoading(true);
+
+    const loadingTimeout = setTimeout(() => {
+      setSelectedEnv(envNumber);
+      setIsLoading(false);
+    }, 3000); // Adjust the time based on your actual loading time
+
+    // Cleanup the timeout to avoid memory leaks
+    return () => clearTimeout(loadingTimeout);
+  };
+
+  return (
     <main className="h-screen w-screen relative">
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
         <Timer />
         <TodoWrapper />
+        <button
+          className="p-5 bg-gray-200 mx-5"
+          onClick={() => handleEnvChange(1)}
+        >
+          1
+        </button>
+        <button
+          className="p-5 bg-gray-200 mx-5"
+          onClick={() => handleEnvChange(2)}
+        >
+          2
+        </button>
       </div>
-      <div className="w-full h-full z-0">
+
+      <div className="relative w-full h-full z-10">
+        <div
+          className={`fixed top-1/2 left-1/2 transition-all ease-in  duration-500  bg-black w-screen h-screen transform -translate-x-1/2 -translate-y-1/2 z-40 ${
+            isLoading ? "opacity-100" : "opacity-0 h-1 w-1"
+          }`}
+        ></div>
+
         <label>
           Focus:
           <input
@@ -169,9 +202,10 @@ const Page = () => {
             far={100}
           />
           <CameraLookAt {...cameraLookAt} />
-          <OrbitControls />
-          {/* <Kelas /> */}
-          {/* <Danau /> */}
+          {/* <OrbitControls /> */}
+          {selectedEnv === 1 && <Kelas />}
+          {selectedEnv === 2 && <Danau />}
+
           <Rain key={rainKey} position={[2, 0, -12]} intensity={1 - Focus} />
         </Canvas>
       </div>
