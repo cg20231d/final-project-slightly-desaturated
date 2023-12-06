@@ -1,4 +1,3 @@
-// EnvirontmentBar.tsx
 import React from "react";
 
 interface EnvirontmentBarProps {

@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/Kelas.jsx", "src/app/components/Rain.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/Kelas.jsx", "src/app/components/Rain.jsx", "src/app/components/loading/Loading.jsx"],
   "exclude": ["node_modules"]
 }

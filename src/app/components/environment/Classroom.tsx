@@ -24,9 +24,8 @@ type cameraAngle = {
   z: number;
 };
 
-export const Lake = () => {
-  console.log("Lake component rendered");
-
+export const Classroom = () => {
+  console.log("Classroom component rendered");
   const [rainSound, setRainSound] = useState("/lowRain.mp3");
   const [Focus, setFocus] = useState(0.5);
   const [rainKey, setRainKey] = useState(0);
@@ -163,11 +162,10 @@ export const Lake = () => {
         <CameraLookAt {...cameraLookAt} />
         <OrbitControls />
         <Kelas />
-
         <Rain key={rainKey} position={[2, 0, -12]} intensity={1 - Focus} />
       </Canvas>
     </>
   );
 };
 
-export default Lake;
+export default Classroom;
