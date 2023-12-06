@@ -17,7 +17,6 @@ import {
 } from "three";
 import Rain from "../Rain";
 import { Danau } from "../Danau";
-import Sushi from "../Sushi";
 
 type cameraAngle = {
   x: number;
@@ -40,7 +39,7 @@ export const Lake = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const handleIntensityChange = (newIntensity: number) => {
     setFocus(newIntensity);
-    if (newIntensity > 0.5) {
+    if (newIntensity < 0.5) {
       if (rainSound != "heavyRain.mp3") {
         setRainSound("heavyRain.mp3");
         audioRef.current!.src = rainSound;
@@ -115,7 +114,7 @@ export const Lake = () => {
         <source src={rainSound} type="audio/mp3" />
       </audio>
 
-      <Canvas>
+      <Canvas style={{ backgroundColor: "skyblue" }}>
         <directionalLight
           ref={directionalLightRef}
           position={[0, 20, -30]}
@@ -162,12 +161,11 @@ export const Lake = () => {
           near={0.1}
           far={100}
         />
-        <CameraLookAt {...cameraLookAt} />
+        {/* <CameraLookAt {...cameraLookAt} /> */}
         <OrbitControls />
-        <Sushi />
-        {/* <Danau /> */}
+        <Danau />
 
-        <Rain key={rainKey} position={[2, 0, -12]} intensity={1 - Focus} />
+        <Rain key={rainKey} position={[20, 0, -20]} intensity={1 - Focus} />
       </Canvas>
     </>
   );

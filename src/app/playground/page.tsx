@@ -36,7 +36,8 @@ const Page = () => {
       </div>
 
       <div className="relative w-full h-full z-10">
-        <Loader visibility={isLoading ? "opacity-100" : "opacity-0 w-1 h-1"} />
+        {/* <Loader visibility={""} /> */}
+        {isLoading ? <Loader visibility={""} /> : null}
 
         {selectedEnv === 1 && <Lake />}
         {selectedEnv === 2 && <Classroom />}
