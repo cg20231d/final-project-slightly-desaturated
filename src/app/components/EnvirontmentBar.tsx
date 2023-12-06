@@ -22,6 +22,12 @@ const EnvirontmentBar: React.FC<EnvirontmentBarProps> = ({
       >
         2
       </button>
+      <button
+        className="p-5 bg-gray-200 mx-5"
+        onClick={() => handleEnvChange(3)}
+      >
+        3
+      </button>
     </>
   );
 };

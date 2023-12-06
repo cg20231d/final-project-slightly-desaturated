@@ -8,6 +8,7 @@ import EnvirontmentBar from "../components/EnvirontmentBar";
 import TodoWrapper from "../components/todo/TodoWrapper";
 import Lake from "../components/environment/Lake";
 import Classroom from "../components/environment/Classroom";
+import Dorm from "../components/environment/Dorm";
 
 const Page = () => {
   const [selectedEnv, setSelectedEnv] = useState(1);
@@ -37,6 +38,7 @@ const Page = () => {
 
         {selectedEnv === 1 && <Lake />}
         {selectedEnv === 2 && <Classroom />}
+        {selectedEnv === 3 && <Dorm />}
       </div>
     </main>
   );
