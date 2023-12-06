@@ -1,7 +1,7 @@
 "use client";
 import { Canvas, useThree } from "@react-three/fiber";
 import React, { useState, useEffect, useRef } from "react";
-
+import axios from "axios";
 import {
   OrbitControls,
   PerspectiveCamera,
@@ -24,9 +24,18 @@ type cameraAngle = {
   z: number;
 };
 
+interface Data {
+  alpha: number;
+  beta: number;
+  delta: number;
+  theta: number;
+  gamma: number;
+  mellow: number;
+  concentration: number;
+}
+
 export const Lake = () => {
   console.log("Lake component rendered");
-
   const [rainSound, setRainSound] = useState("/lowRain.mp3");
   const [Focus, setFocus] = useState(0.5);
   const [rainKey, setRainKey] = useState(0);
@@ -77,13 +86,33 @@ export const Lake = () => {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<Data>(
+          "http://localhost:8080/api/data"
+        );
+        const concentration =
+          response.data.beta +
+          response.data.alpha -
+          (response.data.theta + response.data.delta + 0.1);
+        response.data.concentration = concentration;
+        setFocus(concentration);
+        handleIntensityChange(concentration);
+        console.log(concentration);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const fetchDataInterval = setInterval(fetchData, 1000);
     audioRef.current!.src = rainSound;
     audioRef.current!.play();
     window.addEventListener("keydown", handleArrowKeyPress);
     return () => {
+      clearInterval(fetchDataInterval);
       window.removeEventListener("keydown", handleArrowKeyPress);
     };
-  }, [rainSound]);
+  }, [rainSound, Focus]);
 
   const CameraLookAt = ({ x, y, z }: cameraAngle) => {
     const { camera } = useThree();
