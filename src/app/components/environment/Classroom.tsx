@@ -24,8 +24,8 @@ type cameraAngle = {
   z: number;
 };
 
-export const Lake = () => {
-  console.log("Lake component rendered");
+export const Classroom = () => {
+  console.log("Classroom component rendered");
 
   const [rainSound, setRainSound] = useState("/lowRain.mp3");
   const [Focus, setFocus] = useState(0.5);
@@ -170,4 +170,4 @@ export const Lake = () => {
   );
 };
 
-export default Lake;
+export default Classroom;

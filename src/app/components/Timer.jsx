@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 function Timer() {
 	const [time, setTime] = useState(1500); // 25 minutes in seconds
@@ -60,12 +61,26 @@ function Timer() {
 	};
 
 	return (
-		<div className="mx-auto max-w-md bg-white bg-opacity-80 p-6 rounded-lg shadow-md">
-			<h1 className="text-4xl font-bold mb-4">{isBreak ? "Break" : "Pomodoro Timer"}</h1>
-			<div className="flex items-center justify-center bg-white bg-opacity-90 rounded-md p-4 shadow-md mb-4">
-				<p className="text-4xl font-bold">{formatTime(time)}</p>
+		<motion.div
+		drag
+		dragConstraints={{
+			right: 50, 
+		  }}
+		className="mx-auto w-64 bg-[#265073] text-white bg-opacity-75 px-28 py-5 flex flex-col justify-start items-center  rounded-lg shadow-md">
+			<div className="w-52 py-1 flex text-center mb-3  text-sm justify-evenly items-center font-normal">
+				<button className="px-2  text-center   py-1 rounded-lg hover:bg-gray-600/60">Pomodoro</button>
+				<button className="px-2  text-center  py-1 rounded-lg hover:bg-gray-600/60">Break</button>
 			</div>
-			<div className="flex space-x-4">
+			
+			<div className="w-full flex items-center justify-center ">
+				<p className="text-6xl font-bold">{formatTime(time)}</p>
+			</div>
+
+			<div className="flex w-full justify-center items-center">
+				<button onClick={handleStart} disabled={isActive} className="px-10 rounded-lg mb-2 mt-3 py-2 bg-white text-[#26507390] text-2xl font-bold ">START</button>
+			</div>
+
+			{/* <div className="flex space-x-4">
 				<button
 					className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded focus:outline-none"
 					onClick={handleStart}
@@ -96,8 +111,8 @@ function Timer() {
 						Skip to Work
 					</button>
 				)}
-			</div>
-		</div>
+			</div> */}
+		</motion.div>
 	);
 }
 
