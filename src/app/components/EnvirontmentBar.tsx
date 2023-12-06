@@ -1,4 +1,3 @@
-// EnvirontmentBar.tsx
 import React from "react";
 import { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
