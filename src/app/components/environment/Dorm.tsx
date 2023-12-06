@@ -1,7 +1,7 @@
 "use client";
 import { Canvas, useThree } from "@react-three/fiber";
 import React, { useState, useEffect, useRef } from "react";
-
+import axios from "axios";
 import {
   OrbitControls,
   PerspectiveCamera,
@@ -24,19 +24,29 @@ type cameraAngle = {
   z: number;
 };
 
+interface Data {
+  alpha: number;
+  beta: number;
+  delta: number;
+  theta: number;
+  gamma: number;
+  mellow: number;
+  concentration: number;
+}
+
 export const Dorm = () => {
   console.log("Kos component rendered");
-
   const [rainSound, setRainSound] = useState("/lowRain.mp3");
   const [Focus, setFocus] = useState(0.5);
   const [rainKey, setRainKey] = useState(0);
-  const [ cameraLookAt, setCameraLookAt] = useState<cameraAngle>({
+  const [cameraLookAt, setCameraLookAt] = useState<cameraAngle>({
     x: 0,
     y: 0.75,
     z: 0,
   });
 
   const audioRef = useRef<HTMLAudioElement>(null);
+
   const handleIntensityChange = (newIntensity: number) => {
     setFocus(newIntensity);
     if (newIntensity > 0.5) {
@@ -77,13 +87,33 @@ export const Dorm = () => {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<Data>(
+          "http://localhost:8080/api/data"
+        );
+        const concentration =
+          response.data.beta +
+          response.data.alpha -
+          (response.data.theta + response.data.delta + 0.1);
+        response.data.concentration = concentration;
+        setFocus(concentration);
+        handleIntensityChange(concentration);
+        console.log(concentration);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const fetchDataInterval = setInterval(fetchData, 1000);
     audioRef.current!.src = rainSound;
     audioRef.current!.play();
     window.addEventListener("keydown", handleArrowKeyPress);
     return () => {
+      clearInterval(fetchDataInterval);
       window.removeEventListener("keydown", handleArrowKeyPress);
     };
-  }, [rainSound]);
+  }, [rainSound, Focus]);
 
   const CameraLookAt = ({ x, y, z }: cameraAngle) => {
     const { camera } = useThree();
@@ -155,7 +185,7 @@ export const Dorm = () => {
         <ambientLight intensity={Focus + 0.15} />
         <PerspectiveCamera
           makeDefault
-          position={[2, 0.75,3]}
+          position={[2, 0.75, 3]}
           fov={65}
           near={0.1}
           far={100}
