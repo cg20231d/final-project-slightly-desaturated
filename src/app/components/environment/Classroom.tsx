@@ -192,7 +192,7 @@ export const Classroom = () => {
           far={100}
         />
         <CameraLookAt {...cameraLookAt} />
-        <OrbitControls />
+        {/* <OrbitControls /> */}
         <Kelas />
         <Rain key={rainKey} position={[2, 0, -12]} intensity={1 - Focus} />
       </Canvas>

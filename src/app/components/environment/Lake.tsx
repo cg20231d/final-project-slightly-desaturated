@@ -35,26 +35,26 @@ export const Lake = () => {
 		z: -7,
 	});
 
-	const audioRef = useRef<HTMLAudioElement>(null);
-	const handleIntensityChange = (newIntensity: number) => {
-		setFocus(newIntensity);
-		if (newIntensity > 0.5) {
-			if (rainSound != "heavyRain.mp3") {
-				setRainSound("heavyRain.mp3");
-				audioRef.current!.src = rainSound;
-				audioRef.current!.play();
-			}
-		} else {
-			if (rainSound != "lowRain.mp3") {
-				setRainSound("lowRain.mp3");
-				audioRef.current!.src = rainSound;
-				audioRef.current!.play();
-			}
-		}
-		console.log(newIntensity);
-		console.log(rainSound);
-		setRainKey((prevKey) => prevKey + 1);
-	};
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const handleIntensityChange = (newIntensity: number) => {
+    setFocus(newIntensity);
+    if (newIntensity < 0.5) {
+      if (rainSound != "heavyRain.mp3") {
+        setRainSound("heavyRain.mp3");
+        audioRef.current!.src = rainSound;
+        audioRef.current!.play();
+      }
+    } else {
+      if (rainSound != "lowRain.mp3") {
+        setRainSound("lowRain.mp3");
+        audioRef.current!.src = rainSound;
+        audioRef.current!.play();
+      }
+    }
+    console.log(newIntensity);
+    console.log(rainSound);
+    setRainKey((prevKey) => prevKey + 1);
+  };
 
 	const handleArrowKeyPress = (event: KeyboardEvent) => {
 		switch (event.key) {
@@ -131,10 +131,10 @@ export const Lake = () => {
 				<OrbitControls />
 				<Danau />
 
-				<Rain key={rainKey} position={[2, 0, -12]} intensity={1 - Focus} />
-			</Canvas>
-		</>
-	);
+        <Rain key={rainKey} position={[20, 0, -20]} intensity={1 - Focus} />
+      </Canvas>
+    </>
+  );
 };
 
 export default Lake;
