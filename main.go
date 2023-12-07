@@ -67,7 +67,7 @@ func getDataHandler(c *gin.Context) {
 }
 
 func main() {
-	ip := "192.168.18.146"
+	ip := "192.168.18.14"
 	port := 5000
 
 	dispatcher := osc.NewStandardDispatcher()

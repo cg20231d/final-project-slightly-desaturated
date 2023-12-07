@@ -48,18 +48,18 @@ export const Classroom = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const handleIntensityChange = (newIntensity: number) => {
     setFocus(newIntensity);
-    if (newIntensity > 0.5) {
+    if (newIntensity < 0.5) {
       if (rainSound != "heavyRain.mp3") {
         setRainSound("heavyRain.mp3");
         audioRef.current!.src = rainSound;
-        audioRef.current!.loop = true; // Set loop to true
+        // audioRef.current!.loop = true; // Set loop to true
         audioRef.current!.play();
       }
     } else {
       if (rainSound != "lowRain.mp3") {
         setRainSound("lowRain.mp3");
         audioRef.current!.src = rainSound;
-        audioRef.current!.loop = true; // Set loop to true
+        // audioRef.current!.loop = true; // Set loop to true
         audioRef.current!.play();
       }
     }
@@ -96,7 +96,7 @@ export const Classroom = () => {
         const concentration =
           response.data.beta +
           response.data.alpha -
-          (response.data.theta + response.data.delta + 0.1);
+          (response.data.theta - 0.1);
         response.data.concentration = concentration;
         setFocus(concentration);
         handleIntensityChange(concentration);
@@ -108,7 +108,7 @@ export const Classroom = () => {
 
     const fetchDataInterval = setInterval(fetchData, 1000);
     audioRef.current!.src = rainSound;
-    audioRef.current!.play();
+    // audioRef.current!.play();
     window.addEventListener("keydown", handleArrowKeyPress);
     return () => {
       clearInterval(fetchDataInterval);
