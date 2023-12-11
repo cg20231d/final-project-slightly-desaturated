@@ -11,14 +11,14 @@ import (
 )
 
 var museData struct {
-	Alpha         float32
-	Beta          float32
-	Delta         float32
-	Theta         float32
-	Gamma         float32
-	Mellow        float32
-	Blink         bool
-	JawClench     bool
+	Alpha     float32
+	Beta      float32
+	Delta     float32
+	Theta     float32
+	Gamma     float32
+	Mellow    float32
+	Blink     bool
+	JawClench bool
 }
 
 func alphaHandler(msg *osc.Message) {
@@ -55,19 +55,19 @@ func jawClenchHandler(msg *osc.Message) {
 
 func getDataHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"alpha":         museData.Alpha,
-		"beta":          museData.Beta,
-		"delta":         museData.Delta,
-		"theta":         museData.Theta,
-		"gamma":         museData.Gamma,
-		"mellow":        museData.Mellow,
-		"blink":         museData.Blink,
-		"jawClench":     museData.JawClench,
+		"alpha":     museData.Alpha,
+		"beta":      museData.Beta,
+		"delta":     museData.Delta,
+		"theta":     museData.Theta,
+		"gamma":     museData.Gamma,
+		"mellow":    museData.Mellow,
+		"blink":     museData.Blink,
+		"jawClench": museData.JawClench,
 	})
 }
 
 func main() {
-	ip := "192.168.18.14"
+	ip := "192.168.18.59"
 	port := 5000
 
 	dispatcher := osc.NewStandardDispatcher()

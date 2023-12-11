@@ -28,10 +28,14 @@ function Timer() {
 				// Check if isActive is true before updating state
 				// Switch to break or work
 				setIsBreak((prevIsBreak) => !prevIsBreak);
-				setIsActive(false);
-
-				// Play the MP3 after the timer reaches zero
 				playAudio();
+				if (!isBreak) {
+					setTime((prevTime) => 300);
+				} else {
+					setTime((prevTime) => 1500);
+
+				}
+				// Play the MP3 after the timer reaches zero
 			}
 		}
 

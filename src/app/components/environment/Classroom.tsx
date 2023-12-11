@@ -48,7 +48,7 @@ export const Classroom = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const handleIntensityChange = (newIntensity: number) => {
     setFocus(newIntensity);
-    if (newIntensity < 0.5) {
+    if (newIntensity > 0.5) {
       if (rainSound != "heavyRain.mp3") {
         setRainSound("heavyRain.mp3");
         audioRef.current!.src = rainSound;
@@ -107,8 +107,21 @@ export const Classroom = () => {
     };
 
     const fetchDataInterval = setInterval(fetchData, 1000);
-    audioRef.current!.src = rainSound;
-    // audioRef.current!.play();
+
+    if (Focus <= 0.5) {
+      if (Focus == 0.5) {
+        audioRef.current!.src = rainSound;
+        audioRef.current!.play();
+      } else {
+      }
+    } else {
+      if (Focus <= 0.5) {
+        audioRef.current!.src = rainSound;
+        audioRef.current!.play();
+      } else {
+      }
+    }
+
     window.addEventListener("keydown", handleArrowKeyPress);
     return () => {
       clearInterval(fetchDataInterval);
@@ -128,10 +141,9 @@ export const Classroom = () => {
   const pointLightRef = useRef<PointLight>(null!);
   return (
     <>
-      <label hidden>
+      <label>
         Focus:
         <input
-          hidden
           type="range"
           min="0"
           max="1"
@@ -141,7 +153,13 @@ export const Classroom = () => {
         />
         {Focus}
       </label>
-      <audio hidden ref={audioRef} controls onLoad={audioRef.current?.play}>
+      <audio
+        hidden
+        ref={audioRef}
+        controls
+        onLoad={audioRef.current?.play}
+        loop={true}
+      >
         <source src={rainSound} type="audio/mp3" />
       </audio>
       <Canvas>

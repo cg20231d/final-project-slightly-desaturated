@@ -51,6 +51,7 @@ const MovingItem = (props) => {
     </group>
   );
 };
+
 const Background = () => {
   const ref = useRef();
 
@@ -101,6 +102,7 @@ const Background = () => {
     </group>
   );
 };
+
 export const Loading = () => {
   return (
     <>
@@ -113,7 +115,6 @@ export const Loading = () => {
         maxDistance={15}
       />
       <ambientLight intensity={0.2} />
-      <Environment preset="sunset" intensity={10} blur={0.2} />
       <group position={[0, -1, 0]}>
         <Background />
 
