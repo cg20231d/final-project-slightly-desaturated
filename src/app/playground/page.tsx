@@ -38,7 +38,7 @@ const Page = () => {
       <div className="relative w-full h-full z-10">
         {/* <Loader visibility={""} />
         {/* {isLoading ? <Loader visibility={""} /> : null} */}
-        {/* <Loader visibility={isLoading ? "opacity-100" : "opacity-0 h-1 w-1"} /> */}
+        <Loader visibility={isLoading ? "opacity-100" : "opacity-0 h-1 w-1"} />
 
         {selectedEnv === 1 && <Lake />}
         {selectedEnv === 2 && <Classroom />}

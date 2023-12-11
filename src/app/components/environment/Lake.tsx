@@ -105,8 +105,20 @@ export const Lake = () => {
     };
 
     const fetchDataInterval = setInterval(fetchData, 1000);
-    audioRef.current!.src = rainSound;
-    audioRef.current!.play();
+    if (Focus <= 0.5) {
+			if (Focus == 0.5) {
+				audioRef.current!.src = rainSound;
+				audioRef.current!.play();
+			} else {
+			}
+		} else {
+			if (Focus <= 0.5) {
+				audioRef.current!.src = rainSound;
+				audioRef.current!.play();
+			} else {
+			}
+		}
+
     window.addEventListener("keydown", handleArrowKeyPress);
     return () => {
       clearInterval(fetchDataInterval);
